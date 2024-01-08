@@ -4,23 +4,38 @@ import { Link } from 'react-router-dom'
 
 import { Formik } from 'formik'
 
+import { useDispatch } from 'react-redux'
+import {
+  showErrorReducer,
+  showSuccessReducer,
+} from '../../Store/reducers/c2eSettings'
+
 import C2eHeadingSubText from '../../utils/C2eHeading'
 import C2eLabel from '../../utils/C2eLabel'
 import LoginInput from '../../utils/FormElements/loginInput'
 import Button from '../../utils/Button'
-import { CrossIcon, EyeIcon, HideEye } from '../../components/IconLibrary'
+import Alert from '../../utils/Alert'
+import {
+  CrossIcon,
+  EyeIcon,
+  HideEye,
+  Loading,
+} from '../../components/IconLibrary'
 
 const SignUp = ({ showPassword, setshowPassword, handleSignUp }) => {
+  const dispatch = useDispatch()
+
   return (
     <div className="max-w-[448px] w-full flex gap-[55px] flex-col items-center justify-center">
       {/* heading */}
       <C2eHeadingSubText className="" heading="Signup" />
+      {/* <Alert type="error" /> */}
       <Formik
         initialValues={{ firstname: '', lastname: '', email: '', password: '' }}
         validate={(values) => {
           const errors = {}
           const passwordRegex =
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&].{7,}$/
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,26}$/
           if (!values.firstname) {
             errors.firstname = 'Required'
           }
@@ -40,16 +55,24 @@ const SignUp = ({ showPassword, setshowPassword, handleSignUp }) => {
           if (!values.password) {
             errors.password = 'Required'
           } else if (!passwordRegex.test(values.password)) {
-            errors.password = `At least 8 characters long
-               Should contain at least: 1 uppercase letter, 1 lowercase letter, 1 number.`
+            errors.password = `Password should be between 8 - 26 characters and must include at least one lowercase letter, one uppercase letter, one number, and one symbol`
           }
           return errors
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          handleSignUp(values)
-          // Additional logic, redirection, etc.
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          const result = await handleSignUp(values)
 
+          if (result?.status === 200) {
+            // dispatch(showSuccessReducer('Signup successful!'))
+            return result
+          } else {
+            // dispatch(
+            //   showErrorReducer('An account with this email already exists!'),
+            // )
+            setSubmitting(true)
+          }
           setSubmitting(false)
+          resetForm()
         }}
       >
         {({
@@ -168,10 +191,14 @@ const SignUp = ({ showPassword, setshowPassword, handleSignUp }) => {
                 bg="bg-[#084892]"
                 className="min-w-[242px] justify-center text-white shadow-btnShadow"
                 text={'Signup'}
-                disabled={isSubmitting}
-                cta={() => {
-                  // handleLogin('popup');
-                }}
+                disabled={
+                  Object.keys(errors).length > 0 ||
+                  Object.values(values).some((value) => !value)
+                    ? true
+                    : false
+                }
+                Icon={isSubmitting ? <Loading /> : ''}
+                cta={() => {}}
               />
 
               <div className="flex items-center">
@@ -185,9 +212,7 @@ const SignUp = ({ showPassword, setshowPassword, handleSignUp }) => {
                     bg="bg-transparent"
                     className="text-[#084892] p-0 mb-1"
                     text={'Login'}
-                    cta={() => {
-                      // setSignIn('login')
-                    }}
+                    cta={() => {}}
                   />
                 </Link>
               </div>

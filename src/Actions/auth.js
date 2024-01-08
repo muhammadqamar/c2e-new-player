@@ -8,7 +8,14 @@ import {
   forgetPassword,
   resetPassword,
 } from '../Services/auth'
-import { setUser, setProfile, clearUser } from '../Store/reducers/auth'
+import {
+  setUser,
+  setProfile,
+  clearUser,
+  updatePasswordStart,
+  updatePasswordSuccess,
+  updatePasswordFailure,
+} from '../Store/reducers/auth'
 
 export const signUpRequest = (email, password) => async (dispatch) => {
   try {
@@ -52,9 +59,12 @@ export const verifyResetPasswordTokenRequest = (token) => async (dispatch) => {
 export const updatePasswordRequest =
   (password, newPassword) => async (dispatch) => {
     try {
+      dispatch(updatePasswordStart())
       const result = await updatePassword(password, newPassword)
+      dispatch(updatePasswordSuccess())
       return result
     } catch (error) {
+      dispatch(updatePasswordFailure('Error updating password'))
       throw error
     }
   }

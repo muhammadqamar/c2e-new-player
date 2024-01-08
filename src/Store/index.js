@@ -1,9 +1,10 @@
-// store.js
 import { configureStore } from '@reduxjs/toolkit'
-import authSlice from './reducers/auth'
-
+import auth from './reducers/auth'
+import c2eSettings from './reducers/c2eSettings'
 const store = configureStore({
-  reducer: authSlice,
+  reducer: {
+    c2eSettings,
+    auth,
+  },
 })
-
 export default store

@@ -8,7 +8,13 @@ import C2eHeadingSubText from '../../utils/C2eHeading'
 import C2eLabel from '../../utils/C2eLabel'
 import LoginInput from '../../utils/FormElements/loginInput'
 import Button from '../../utils/Button'
-import { CrossIcon, EyeIcon, HideEye } from '../../components/IconLibrary'
+
+import {
+  CrossIcon,
+  EyeIcon,
+  HideEye,
+  Loading,
+} from '../../components/IconLibrary'
 
 const LoginForm = ({ showPassword, setshowPassword, handleSignIn }) => {
   return (
@@ -31,11 +37,15 @@ const LoginForm = ({ showPassword, setshowPassword, handleSignIn }) => {
           }
           return errors
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2))
-            setSubmitting(false)
-          }, 400)
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          const result = await handleSignIn(values)
+          if (result?.status === 200) {
+            return result
+          } else {
+            setSubmitting(true)
+          }
+          setSubmitting(false)
+          resetForm()
         }}
       >
         {({
@@ -123,18 +133,16 @@ const LoginForm = ({ showPassword, setshowPassword, handleSignIn }) => {
                 bg="bg-[#084892]"
                 className="min-w-[242px] justify-center text-white shadow-btnShadow"
                 text={'Login'}
-                disabled={isSubmitting}
-                cta={() => {
-                  handleSignIn()
-                }}
+                disabled={
+                  Object.keys(errors).length > 0 ||
+                  Object.values(values).some((value) => !value)
+                    ? true
+                    : false
+                }
+                Icon={isSubmitting ? <Loading /> : ''}
+                cta={() => {}}
               />
-              {/* <Button
-                className="button !bg-[#084892] !text-white py-1 !px-[43px]"
-                type="submit"
-                disabled={isSubmitting}
-              >
-                Save
-              </Button> */}
+
               <div className="flex items-center">
                 <C2eLabel text="Don’t Have an account?" className="mr-[2px]" />
                 <Link to="/sign-up">

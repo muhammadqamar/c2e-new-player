@@ -1,9 +1,27 @@
 import React from 'react'
 
+import { useDispatch } from 'react-redux'
+import { updatePasswordRequest } from '../Actions/auth'
+
 import NewPassword from '../components/NewResetPassword'
 import C2eLogo from '../assets/images/c2e-logo.svg'
 
 const ResetNewPassword = ({ showPassword, setshowPassword }) => {
+  const dispatch = useDispatch()
+
+  const handleUpdatePassword = async (formData) => {
+    try {
+      const user = await dispatch(
+        updatePasswordRequest(formData.oldpassword, formData.newpassword),
+      )
+      console.log('Update password successfully:', user)
+      // You may handle success actions here
+    } catch (error) {
+      console.error('Update password failed:', error)
+      // You may handle error actions here
+    }
+  }
+
   return (
     <>
       <div className="w-full bg-white">
@@ -17,6 +35,7 @@ const ResetNewPassword = ({ showPassword, setshowPassword }) => {
               <NewPassword
                 showPassword={showPassword}
                 setshowPassword={setshowPassword}
+                handleUpdatePassword={handleUpdatePassword}
               />
             </div>
           </div>

@@ -9,9 +9,18 @@ import C2eLabel from '../../utils/C2eLabel'
 import LoginInput from '../../utils/FormElements/loginInput'
 import Button from '../../utils/Button'
 
-import { CrossIcon, EyeIcon, HideEye } from '../../components/IconLibrary'
+import {
+  CrossIcon,
+  EyeIcon,
+  HideEye,
+  Loading,
+} from '../../components/IconLibrary'
 
-const NewResetPassword = ({ showPassword, setshowPassword }) => {
+const NewResetPassword = ({
+  showPassword,
+  setshowPassword,
+  handleUpdatePassword,
+}) => {
   return (
     <div className="max-w-[448px] w-full flex gap-[70px] flex-col items-center justify-center">
       {/* heading */}
@@ -38,11 +47,15 @@ const NewResetPassword = ({ showPassword, setshowPassword }) => {
 
           return errors
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2))
-            setSubmitting(false)
-          }, 400)
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          const res = await handleUpdatePassword(values)
+          if (res?.status === 200) {
+            return res
+          } else {
+            setSubmitting(true)
+          }
+          setSubmitting(false)
+          resetForm()
         }}
       >
         {({
@@ -189,10 +202,14 @@ const NewResetPassword = ({ showPassword, setshowPassword }) => {
                 bg="bg-[#084892]"
                 className="min-w-[242px] justify-center text-white shadow-btnShadow"
                 text={'Change Password'}
-                disabled={isSubmitting}
-                cta={() => {
-                  // handleLogin('popup');
-                }}
+                disabled={
+                  Object.keys(errors).length > 0 ||
+                  Object.values(values).some((value) => !value)
+                    ? true
+                    : false
+                }
+                Icon={isSubmitting ? <Loading /> : ''}
+                cta={() => {}}
               />
               <div className="flex items-center">
                 <Link to="/login">

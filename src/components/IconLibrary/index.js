@@ -5,5 +5,6 @@ import { AddIcon } from './add'
 import { Search } from './search'
 import { Check } from './check'
 import { Info } from './info'
+import { Loading } from './loading'
 
-export { EyeIcon, CrossIcon, HideEye, AddIcon, Search, Check, Info }
+export { EyeIcon, CrossIcon, HideEye, AddIcon, Search, Check, Info, Loading }
