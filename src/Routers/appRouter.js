@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Routes, Route } from 'react-router-dom'
+
+import { useDispatch } from 'react-redux'
+import { getProfileDataRequest } from '../Actions/auth'
 
 import Login from '../pages/login'
 import SignUp from '../pages/sign-up'
@@ -10,9 +13,15 @@ import NewConfirmPassword from '../pages/reset-new-password'
 import Dashboard from '../pages/dashboard'
 
 const App = () => {
+  const dispatch = useDispatch()
+
   const [tabs, setTabs] = useState('lms')
   const [ltiModal, setLtiModal] = useState(false)
   const [showPassword, setshowPassword] = useState(false)
+
+  useEffect(() => {
+    dispatch(getProfileDataRequest())
+  }, [dispatch])
 
   return (
     <>

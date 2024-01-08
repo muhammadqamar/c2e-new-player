@@ -15,7 +15,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <Provider store={store}>
     <Router>
-      {' '}
       {/* Wrap your App with BrowserRouter */}
       <App />
     </Router>

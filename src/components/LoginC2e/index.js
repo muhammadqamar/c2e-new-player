@@ -10,7 +10,7 @@ import LoginInput from '../../utils/FormElements/loginInput'
 import Button from '../../utils/Button'
 import { CrossIcon, EyeIcon, HideEye } from '../../components/IconLibrary'
 
-const LoginForm = ({ showPassword, setshowPassword }) => {
+const LoginForm = ({ showPassword, setshowPassword, handleSignIn }) => {
   return (
     <>
       {/* heading */}
@@ -124,7 +124,9 @@ const LoginForm = ({ showPassword, setshowPassword }) => {
                 className="min-w-[242px] justify-center text-white shadow-btnShadow"
                 text={'Login'}
                 disabled={isSubmitting}
-                cta={() => {}}
+                cta={() => {
+                  handleSignIn()
+                }}
               />
               {/* <Button
                 className="button !bg-[#084892] !text-white py-1 !px-[43px]"
