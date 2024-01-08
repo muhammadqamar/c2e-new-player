@@ -1,9 +1,25 @@
 import React from 'react'
 
+import { useDispatch } from 'react-redux'
+import { signUpRequest } from '../Actions/auth'
+
 import SignUpForm from '../components/SignUp'
 import C2eLogo from '../assets/images/c2e-logo.svg'
 
 const SignUp = ({ showPassword, setshowPassword }) => {
+  const dispatch = useDispatch()
+
+  const handleSignUp = async (formData) => {
+    try {
+      const user = await dispatch(
+        signUpRequest(formData.email, formData.password),
+      )
+      console.log('Signed up successfully:', user)
+    } catch (error) {
+      console.error('Error signing up:', error)
+    }
+  }
+
   return (
     <>
       <div className="w-full bg-white">
@@ -17,6 +33,7 @@ const SignUp = ({ showPassword, setshowPassword }) => {
               <SignUpForm
                 showPassword={showPassword}
                 setshowPassword={setshowPassword}
+                handleSignUp={handleSignUp}
               />
             </div>
           </div>

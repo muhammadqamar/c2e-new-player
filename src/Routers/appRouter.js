@@ -19,9 +19,9 @@ const App = () => {
   const [ltiModal, setLtiModal] = useState(false)
   const [showPassword, setshowPassword] = useState(false)
 
-  useEffect(() => {
-    dispatch(getProfileDataRequest())
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(getProfileDataRequest())
+  // }, [dispatch])
 
   return (
     <>

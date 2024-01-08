@@ -10,7 +10,7 @@ import LoginInput from '../../utils/FormElements/loginInput'
 import Button from '../../utils/Button'
 import { CrossIcon, EyeIcon, HideEye } from '../../components/IconLibrary'
 
-const SignUp = ({ showPassword, setshowPassword, setSignIn }) => {
+const SignUp = ({ showPassword, setshowPassword, handleSignUp }) => {
   return (
     <div className="max-w-[448px] w-full flex gap-[55px] flex-col items-center justify-center">
       {/* heading */}
@@ -46,10 +46,10 @@ const SignUp = ({ showPassword, setshowPassword, setSignIn }) => {
           return errors
         }}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2))
-            setSubmitting(false)
-          }, 400)
+          handleSignUp(values)
+          // Additional logic, redirection, etc.
+
+          setSubmitting(false)
         }}
       >
         {({
