@@ -1,0 +1,39 @@
+.heading2 {
+  @apply text-[#084892] text-2xl leading-7 font-medium m-0;
+}
+
+.heading3 {
+  @apply text-[#084892] text-center text-sm font-normal m-0;
+}
+
+.heading4 {
+  @apply text-base tracking-[0.32px] font-medium text-black mb-1;
+}
+
+.heading5 {
+  @apply text-sm font-normal text-[#959595] m-0;
+}
+
+.linkText {
+  @apply text-sm font-normal text-[#084892] no-underline hover:underline;
+}
+
+.spanText {
+  @apply text-sm font-normal text-[#084892];
+}
+
+.input {
+  @apply flex max-w-[447px] w-full h-9 p-2 placeholder-[#959595] placeholder:text-sm placeholder:font-normal justify-center items-center rounded border border-[#2E68BF] bg-white;
+}
+
+.error {
+  @apply text-xs text-[#ff0000];
+}
+
+.button {
+  @apply flex rounded-[5.16px] border border-[#084892] shadow-btnSmShadow;
+  background: transparent !important;
+  color: #084892 !important;
+  padding: 4px 30px !important;
+}
+/*# sourceMappingURL=heading.css.map */

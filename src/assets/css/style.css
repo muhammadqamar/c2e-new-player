@@ -1,0 +1,111 @@
+.heading2 {
+  @apply text-[#084892] text-2xl leading-7 font-medium m-0;
+}
+
+.heading3 {
+  @apply text-[#084892] text-center text-sm font-normal m-0;
+}
+
+.heading4 {
+  @apply text-base tracking-[0.32px] font-medium text-black mb-1;
+}
+
+.heading5 {
+  @apply text-sm font-normal text-[#959595] m-0;
+}
+
+.linkText {
+  @apply text-sm font-normal text-[#084892] no-underline hover:underline;
+}
+
+.spanText {
+  @apply text-sm font-normal text-[#084892];
+}
+
+.input {
+  @apply flex max-w-[447px] w-full h-9 p-2 placeholder-[#959595] placeholder:text-sm placeholder:font-normal justify-center items-center rounded border border-[#2E68BF] bg-white;
+}
+
+.error {
+  @apply text-xs text-[#ff0000];
+}
+
+.button {
+  @apply flex rounded-[5.16px] border border-[#084892] shadow-btnSmShadow;
+  background: transparent !important;
+  color: #084892 !important;
+  padding: 4px 30px !important;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  padding: 0;
+  margin: 0;
+}
+
+body,
+html {
+  font-family: 'Inter', sans-serif !important;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 47px;
+  height: 20px;
+}
+
+.switch .checkbox {
+  display: none;
+}
+
+.switch .slider {
+  width: 40px;
+  height: 18px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #666;
+  /* Default color for off state */
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.switch .slider:before {
+  position: absolute;
+  content: '';
+  height: 24px;
+  width: 24px;
+  left: -2px;
+  bottom: 4px;
+  top: -3.59px;
+  background-color: #666;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.switch .checkbox:checked + .slider {
+  background-color: #f8af2c;
+  /* Color for on state */
+}
+
+.switch .checkbox:checked + .slider::before {
+  -webkit-transform: translateX(26px);
+  transform: translateX(26px);
+  background-color: #f8af2c;
+}
+/*# sourceMappingURL=style.css.map */
